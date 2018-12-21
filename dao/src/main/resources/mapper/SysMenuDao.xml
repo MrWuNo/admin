@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solomon.dao.SysMenuDao">
+
+    <resultMap type="com.solomon.entity.SysMenu" id="SysMenuMap">
+        <result property="id" column="id" jdbcType="LONG INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="menuType" column="menu_type" jdbcType="OTHER"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="LONG INTEGER"/>
+        <result property="status" column="status" jdbcType="OTHER"/>
+        <result property="createBy" column="create_by" jdbcType="LONG INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="LONG INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SysMenuMap">
+        select
+          id, title, url, icon, menu_type, sort, parent_id, status, create_by, create_time, update_by, update_time
+        from SuperAdmin.sys_menu
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SysMenuMap">
+        select
+          id, title, url, icon, menu_type, sort, parent_id, status, create_by, create_time, update_by, update_time
+        from SuperAdmin.sys_menu
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SysMenuMap">
+        select
+          id, title, url, icon, menu_type, sort, parent_id, status, create_by, create_time, update_by, update_time
+        from SuperAdmin.sys_menu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="icon != null and icon != ''">
+                and icon = #{icon}
+            </if>
+            <if test="menuType != null">
+                and menu_type = #{menuType}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into SuperAdmin.sys_menu(title, url, icon, menu_type, sort, parent_id, status, create_by, create_time, update_by, update_time)
+        values (#{title}, #{url}, #{icon}, #{menuType}, #{sort}, #{parentId}, #{status}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update SuperAdmin.sys_menu
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="icon != null and icon != ''">
+                icon = #{icon},
+            </if>
+            <if test="menuType != null">
+                menu_type = #{menuType},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from SuperAdmin.sys_menu where id = #{id}
+    </delete>
+
+</mapper>
