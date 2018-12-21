@@ -5,6 +5,7 @@ import com.solomon.service.SysRoleService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.ws.rs.Path;
 
 /**
  * 后台角色表(SysRole)表控制层
